@@ -24,6 +24,7 @@ body{
     align-items: center;
     justify-content: center;
     background-color: var(--rose100);
+    user-select: none;
 }
 
 .imageSection{
@@ -73,21 +74,51 @@ main{
                     position: absolute;
                     border: 1px solid red;
                     background-color: white;
-                    border: 1px solid grey;
+                    border: 1.5px solid grey;
                     bottom: -5%;
                     padding: 5px 10px;
                     border-radius: 50px;
+                    width: 60%;
+                    transition: border-color 0.2s linear;
 
-                    .imageSection{
-                        width: 20px;
-                        aspect-ratio: 1/1;
-                        margin-right: 10px;
+                    &:hover{
+                        border-color: var(--redColor);
+                        cursor: pointer;
                     }
 
-                    .addtocartTitle{
-                        font-weight: bold;
-                        text-transform: capitalize;
-                        font-size: 15px;
+                    .addtocart{
+                        /* display: flex; */
+
+                        .imageSection{
+                            width: 20px;
+                            aspect-ratio: 1/1;
+                            margin-right: 10px;
+                        }
+    
+                        .addtocartTitle{
+                            font-weight: bold;
+                            text-transform: capitalize;
+                            font-size: 15px;
+                        }
+                    }
+
+                    .productQuantity{
+                        display: none;
+
+                        .imageSection{
+                            width: 20px;
+                            border: 1px solid white;
+                            border-radius: 50%;
+                            aspect-ratio: 1/1;
+                            padding: 5px;
+                        }
+
+                        #productUnits{
+                            margin: 0px 20px;
+                            color: white;
+                            font-weight: bold;
+                            font-size: 15px;
+                        }
                     }
                 }
             }
