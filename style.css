@@ -59,6 +59,7 @@ main{
         margin-top: 30px;
 
         .subcontainer{
+
             .itemsImage{
                 border-radius: 10px;
                 position: relative;
@@ -72,7 +73,6 @@ main{
 
                 .addtocartBox{
                     position: absolute;
-                    border: 1px solid red;
                     background-color: white;
                     border: 1.5px solid grey;
                     bottom: -5%;
@@ -87,8 +87,6 @@ main{
                     }
 
                     .addtocart{
-                        /* display: flex; */
-
                         .imageSection{
                             width: 20px;
                             aspect-ratio: 1/1;
@@ -104,6 +102,7 @@ main{
 
                     .productQuantity{
                         display: none;
+                        justify-content: space-between;
 
                         .imageSection{
                             width: 20px;
@@ -168,6 +167,38 @@ main{
         .cartNote{
             font-weight: 600;
             color: var(--rose500);
+        }
+    }
+
+    #orderingItems{
+        display: none;
+
+        .totalPriceBox{
+            margin-top: 20px;
+            justify-content: space-between;
+            margin-bottom: 30px;
+
+            .title{
+                font-weight: 500;
+            }
+        }
+
+        .deliveryDetails{
+            margin-bottom: 20px;
+            background-color: var(--rose50);
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        #confirmOrderBtn{
+            width: 100%;
+            background-color: var(--redColor);
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: 400;
+            font-size: 16px;
         }
     }
 }
