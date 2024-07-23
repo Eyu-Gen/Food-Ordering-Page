@@ -117,9 +117,14 @@ main{
                             border-radius: 50%;
                             aspect-ratio: 1/1;
                             padding: 5px;
+
+                            &:hover{
+                                background-color: white;
+                                /* color: var(--redColor); ERROR...want to make the svg's color red... */
+                            }
                         }
 
-                        #productUnits{
+                        .productUnits{
                             margin: 0px 20px;
                             color: white;
                             font-weight: bold;
