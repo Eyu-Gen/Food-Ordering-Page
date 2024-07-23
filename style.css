@@ -53,18 +53,19 @@ main{
     width: 70%;
 
     .productList{
-        display: grid;
+        display: flex;
+        flex-wrap: wrap;
         gap: 20px;
-        grid-template-columns: auto auto auto;
         margin-top: 30px;
 
         .subcontainer{
-
+            width: 30%;
+            
             .itemsImage{
                 border-radius: 10px;
                 position: relative;
                 width: 100%;
-                aspect-ratio: 1/1;
+                height: 70%;
                 margin-bottom: 30px;
 
                 img{
@@ -75,14 +76,15 @@ main{
                     position: absolute;
                     background-color: white;
                     border: 1.5px solid grey;
-                    bottom: -5%;
+                    bottom: -7%;
                     padding: 5px 10px;
                     border-radius: 50px;
                     width: 60%;
-                    transition: border-color 0.2s linear;
+                    transition: border-color 0.2s linear, color 0.2s linear;
 
                     &:hover{
                         border-color: var(--redColor);
+                        color: var(--redColor);
                         cursor: pointer;
                     }
 
@@ -91,6 +93,11 @@ main{
                             width: 20px;
                             aspect-ratio: 1/1;
                             margin-right: 10px;
+
+                            &:hover{
+                                background-color: white;
+                                color: var(--redColor);
+                            }
                         }
     
                         .addtocartTitle{
@@ -117,6 +124,7 @@ main{
                             color: white;
                             font-weight: bold;
                             font-size: 15px;
+                            padding: 2px;
                         }
                     }
                 }
@@ -131,7 +139,7 @@ main{
                 .itemName{
                     font-weight: 700;
                     margin-bottom: 5px;
-                    font-size: 20px;
+                    font-size: 15px;
                 }
 
                 .price{
@@ -199,6 +207,12 @@ main{
             color: white;
             font-weight: 400;
             font-size: 16px;
+            transition: background-color 0.2s linear;
+
+            &:hover{
+                cursor: pointer;
+                background-color: var(--rose900);
+            }
         }
     }
 }
