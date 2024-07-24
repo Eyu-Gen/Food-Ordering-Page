@@ -154,6 +154,10 @@ main{
                 .price{
                     font-weight: 600;
                     color: var(--redColor);
+
+                    &::before{
+                        content: "$";
+                    }
                 }
             }
         }
@@ -199,18 +203,33 @@ main{
                     flex-direction: column;
                     width: 70%;
                     height: 100%;
-                    border: 1px solid red;
 
                     .selectedItemName{
-                        border: 1px solid red;
                         width: 100%;
                         font-weight: 600;
                         font-size: 15px;
                         margin-bottom: 5px;
                     }
-
+                    
                     .selectedItemPriceContainer{
-                        
+                        width: 60%;
+                        justify-content: space-around;
+                        font-size: 15px;
+
+                        .selectedItemUnit{
+                            font-weight: 600;
+                            color: var(--redColor);
+                        }
+
+                        .selectedItemPricePerUnit{
+                            /* font-weight: 100; */
+                            opacity: 70%;
+                        }
+
+                        .selectedItemTotalPricePerUnit{
+                            color: var(--rose500);
+                            font-weight: 500;
+                        }
                     }
                 }
 

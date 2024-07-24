@@ -15,6 +15,7 @@ let clickedBtn = false;
 for(let i = 0; i < addtocartBoxes.length; i++) {
     addtocartBoxes[i].addEventListener("click", () => {
         clickedBtn = true;
+        let count = 1;
         if(clickedBtn) {
             addtocartBoxes[i].style.backgroundColor = "var(--redColor)";
             addtocartBoxes[i].style.borderColor = "var(--redColor)";
@@ -33,7 +34,6 @@ for(let i = 0; i < addtocartBoxes.length; i++) {
             //Right subcontainer
             const selectedItemBoxRight = document.createElement("div");
             selectedItemBoxRight.classList.add("selectedItemBoxRight");
-            selectedItemBoxRight.classList.add("center");
             selectedItemBox.appendChild(selectedItemBoxRight);
 
             //Creating childs of right subcontainer...
@@ -49,15 +49,18 @@ for(let i = 0; i < addtocartBoxes.length; i++) {
             selectedItemPriceContainer.classList.add("center");
             //units displaying div...
             const selectedItemUnit = document.createElement("div");
-            selectedItemUnit.innerHTML = `1x`;
+            selectedItemUnit.classList.add("selectedItemUnit");
+            selectedItemUnit.innerHTML = `${count}x`; //ERROR... count is not being ++ when plus btn is clicked...
             selectedItemPriceContainer.appendChild(selectedItemUnit);
             //price per item displaying div...
             const selectedItemPricePerUnit = document.createElement("div");
+            selectedItemPricePerUnit.classList.add("selectedItemPricePerUnit");
             selectedItemPricePerUnit.innerHTML = "@" + price[i].innerHTML;
             selectedItemPriceContainer.appendChild(selectedItemPricePerUnit);
             //total price of per unit displaying div...
             const selectedItemTotalPricePerUnit = document.createElement("div");
-            selectedItemTotalPricePerUnit.innerHTML = Number(price[i].innerHTML) * (i+1); //price X unit ERROR... 
+            selectedItemTotalPricePerUnit.classList.add("selectedItemTotalPricePerUnit");
+            selectedItemTotalPricePerUnit.innerHTML = (Number(price[i].innerHTML) * count).toFixed(2);
             selectedItemPriceContainer.appendChild(selectedItemTotalPricePerUnit);
             selectedItemBoxRight.appendChild(selectedItemPriceContainer);
             
@@ -81,7 +84,7 @@ for(let i =0; i < plusBtn.length; i++) {
     
     minusBtns[i].addEventListener("click", () => {
         let unitValue = Number(productUnits[i].innerHTML);
-        if(unitValue === 0) {
+        if(unitValue === 0) { //ERROR... unitvalue is being negative and zero...
             addtocart[i].display = "flex";
             productQuantities[i].display = "none";
         }
