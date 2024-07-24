@@ -5,6 +5,7 @@ const minusBtns = document.getElementsByClassName("minusBtn");
 const plusBtn = document.getElementsByClassName("plusBtn");
 const productUnits = document.getElementsByClassName("productUnits");
 const itemName = document.getElementsByClassName("itemName");
+const price = document.getElementsByClassName("price");
 const emptyCart = document.getElementById("emptyCart");
 const orderingItems = document.getElementById("orderingItems");
 const itemLists = document.getElementById("itemLists");
@@ -21,9 +22,52 @@ for(let i = 0; i < addtocartBoxes.length; i++) {
             addtocart[i].style.display = "none";
             emptyCart.style.display = "none";
             orderingItems.style.display = "block";
-            let error = document.createElement("div");
-            error.innerHTML = `<div></div>`; //ERROR...want to display a whole container...
-            itemLists.appendChild(error);
+
+            //Creating a container to display selected item name and price... main container
+            const selectedItemBox = document.createElement("div");
+            selectedItemBox.classList.add("selectedItemBox");
+            selectedItemBox.classList.add("center");
+            itemLists.appendChild(selectedItemBox);
+
+            //Creating two subcontainer inside main container and using flex...
+            //Right subcontainer
+            const selectedItemBoxRight = document.createElement("div");
+            selectedItemBoxRight.classList.add("selectedItemBoxRight");
+            selectedItemBoxRight.classList.add("center");
+            selectedItemBox.appendChild(selectedItemBoxRight);
+
+            //Creating childs of right subcontainer...
+            //Title...
+            const selectedItemName = document.createElement("p");
+            selectedItemName.classList.add("selectedItemName");
+            selectedItemName.innerHTML = itemName[i].innerHTML;
+            selectedItemBoxRight.appendChild(selectedItemName);
+            
+            //Price...
+            const selectedItemPriceContainer = document.createElement("div");
+            selectedItemPriceContainer.classList.add("selectedItemPriceContainer");
+            selectedItemPriceContainer.classList.add("center");
+            //units displaying div...
+            const selectedItemUnit = document.createElement("div");
+            selectedItemUnit.innerHTML = `1x`;
+            selectedItemPriceContainer.appendChild(selectedItemUnit);
+            //price per item displaying div...
+            const selectedItemPricePerUnit = document.createElement("div");
+            selectedItemPricePerUnit.innerHTML = "@" + price[i].innerHTML;
+            selectedItemPriceContainer.appendChild(selectedItemPricePerUnit);
+            //total price of per unit displaying div...
+            const selectedItemTotalPricePerUnit = document.createElement("div");
+            selectedItemTotalPricePerUnit.innerHTML = Number(price[i].innerHTML) * (i+1); //price X unit ERROR... 
+            selectedItemPriceContainer.appendChild(selectedItemTotalPricePerUnit);
+            selectedItemBoxRight.appendChild(selectedItemPriceContainer);
+            
+
+
+            //Left subcontainer
+            const selectedItemBoxLeft = document.createElement("div");
+            selectedItemBoxLeft.classList.add("selectedItemBoxLeft");
+            selectedItemBoxLeft.classList.add("center");
+            selectedItemBox.appendChild(selectedItemBoxLeft);
         }
     })
 }

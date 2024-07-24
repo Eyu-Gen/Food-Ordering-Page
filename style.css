@@ -118,6 +118,10 @@ main{
                             aspect-ratio: 1/1;
                             padding: 5px;
 
+                            img{
+                                object-fit: none;
+                            }
+
                             &:hover{
                                 background-color: white;
                                 /* color: var(--redColor); ERROR...want to make the svg's color red... */
@@ -185,6 +189,37 @@ main{
 
     #orderingItems{
         display: none;
+
+        #itemLists{
+            .selectedItemBox{
+                width: 100%;
+                justify-content: space-between;
+
+                .selectedItemBoxRight{
+                    flex-direction: column;
+                    width: 70%;
+                    height: 100%;
+                    border: 1px solid red;
+
+                    .selectedItemName{
+                        border: 1px solid red;
+                        width: 100%;
+                        font-weight: 600;
+                        font-size: 15px;
+                        margin-bottom: 5px;
+                    }
+
+                    .selectedItemPriceContainer{
+                        
+                    }
+                }
+
+                .selectedItemBoxLeft{
+                    width: 20%;
+                    height: 100%;
+                }
+            }
+        }
 
         .totalPriceBox{
             margin-top: 20px;
