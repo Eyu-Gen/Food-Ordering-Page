@@ -198,6 +198,9 @@ main{
             .selectedItemBox{
                 width: 100%;
                 justify-content: space-between;
+                margin-bottom:10px;
+                border-bottom: 2px solid var(--rose300);
+                font-size: 13px;
 
                 .selectedItemBoxRight{
                     flex-direction: column;
@@ -207,14 +210,13 @@ main{
                     .selectedItemName{
                         width: 100%;
                         font-weight: 600;
-                        font-size: 15px;
                         margin-bottom: 5px;
                     }
                     
                     .selectedItemPriceContainer{
                         width: 60%;
                         justify-content: space-around;
-                        font-size: 15px;
+                        margin-bottom: 10px;
 
                         .selectedItemUnit{
                             font-weight: 600;

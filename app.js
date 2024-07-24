@@ -7,6 +7,7 @@ const productUnits = document.getElementsByClassName("productUnits");
 const itemName = document.getElementsByClassName("itemName");
 const price = document.getElementsByClassName("price");
 const emptyCart = document.getElementById("emptyCart");
+const items = document.getElementById("items");
 const orderingItems = document.getElementById("orderingItems");
 const itemLists = document.getElementById("itemLists");
 const confirmOrderBtn = document.getElementById("confirmOrderBtn");
@@ -55,12 +56,12 @@ for(let i = 0; i < addtocartBoxes.length; i++) {
             //price per item displaying div...
             const selectedItemPricePerUnit = document.createElement("div");
             selectedItemPricePerUnit.classList.add("selectedItemPricePerUnit");
-            selectedItemPricePerUnit.innerHTML = "@" + price[i].innerHTML;
+            selectedItemPricePerUnit.innerHTML = "@ $" + price[i].innerHTML;
             selectedItemPriceContainer.appendChild(selectedItemPricePerUnit);
             //total price of per unit displaying div...
             const selectedItemTotalPricePerUnit = document.createElement("div");
             selectedItemTotalPricePerUnit.classList.add("selectedItemTotalPricePerUnit");
-            selectedItemTotalPricePerUnit.innerHTML = (Number(price[i].innerHTML) * count).toFixed(2);
+            selectedItemTotalPricePerUnit.innerHTML = "$" + (Number(price[i].innerHTML) * count).toFixed(2);
             selectedItemPriceContainer.appendChild(selectedItemTotalPricePerUnit);
             selectedItemBoxRight.appendChild(selectedItemPriceContainer);
             
