@@ -6,6 +6,7 @@ const productUnits = document.getElementsByClassName("productUnits");
 const itemLists = document.getElementById("itemLists");
 const price = document.getElementsByClassName("price");
 const emptyCart = document.getElementById("emptyCart");
+const items = document.getElementById("items");
 const orderingItems = document.getElementById("orderingItems");
 const cartItemsArray = [];
 let count;
@@ -34,7 +35,8 @@ for (let i = 0; i < plusBtn.length; i++) {
         unitValue++;
         productUnits[i].innerHTML = unitValue;
         cartItemsArray[i].count++;
-        // console.log(cartItemsArray[i])
+        document.querySelector(`[data-id = ${cartItemsArray[i].itemId}]`).querySelector(".selectedItemUnit").textContent = `${unitValue}x`;
+        displayItems();
     })
 
     minusBtns[i].addEventListener("click", (e) => {
@@ -48,16 +50,24 @@ for (let i = 0; i < plusBtn.length; i++) {
             unitValue--;
         }
         productUnits[i].innerHTML = unitValue;
+        cartItemsArray[i].count--;
+        document.querySelector(`[data-id = ${cartItemsArray[i].itemId}]`).querySelector(".selectedItemUnit").textContent = `${unitValue}x`;
+        displayItems()
     })
 }
 
 function displayItems() {
+    itemLists.innerHTML = "";
     for (let i = 0; i < cartItemsArray.length; i++) {
+        if(cartItemsArray[i].count < 1) {
+            continue;
+        }
         // console.log(cartItemsArray);
         //Creating a container to display selected item name and price... main container
         const selectedItemBox = document.createElement("div");
         selectedItemBox.classList.add("selectedItemBox");
         selectedItemBox.classList.add("center");
+        selectedItemBox.setAttribute("data-id", cartItemsArray[i].itemId);
         itemLists.appendChild(selectedItemBox);
 
         //Creating two subcontainer inside main container and using flex...
@@ -81,7 +91,7 @@ function displayItems() {
         //units displaying div...
         const selectedItemUnit = document.createElement("div");
         selectedItemUnit.classList.add("selectedItemUnit");
-        selectedItemUnit.innerHTML = `${count}x`; //ERROR... count is not being ++ when plus btn is clicked...
+        selectedItemUnit.innerHTML = `${cartItemsArray[i].count}x`;
         selectedItemPriceContainer.appendChild(selectedItemUnit);
         //price per item displaying div...
         const selectedItemPricePerUnit = document.createElement("div");
@@ -91,14 +101,16 @@ function displayItems() {
         //total price of per unit displaying div...
         const selectedItemTotalPricePerUnit = document.createElement("div");
         selectedItemTotalPricePerUnit.classList.add("selectedItemTotalPricePerUnit");
-        selectedItemTotalPricePerUnit.innerHTML = "$" + (Number(price[i].innerHTML) * count).toFixed(2);
+        selectedItemTotalPricePerUnit.innerHTML = "$" + (Number(price[i].textContent) * Number(cartItemsArray[i].count)).toFixed(2);
         selectedItemPriceContainer.appendChild(selectedItemTotalPricePerUnit);
         selectedItemBoxRight.appendChild(selectedItemPriceContainer);
 
         //Left subcontainer
         const selectedItemBoxLeft = document.createElement("div");
         selectedItemBoxLeft.classList.add("selectedItemBoxLeft");
-        selectedItemBoxLeft.classList.add("center");
+        selectedItemBoxLeft.classList.add("center"); //Cross btn remaining...
         selectedItemBox.appendChild(selectedItemBoxLeft);
+
+        items.textContent = cartItemsArray.length;
     }
 }
