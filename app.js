@@ -1,95 +1,104 @@
-const addtocartBoxes = document.getElementsByClassName("addtocartBox");
-const productQuantities = document.getElementsByClassName("productQuantity");
-const addtocart = document.getElementsByClassName("addtocart");
-const minusBtns = document.getElementsByClassName("minusBtn");
+const addTocart = document.getElementsByClassName("addtocart");
+const productQuantity = document.getElementsByClassName("productQuantity");
 const plusBtn = document.getElementsByClassName("plusBtn");
+const minusBtns = document.getElementsByClassName("minusBtn");
 const productUnits = document.getElementsByClassName("productUnits");
-const itemName = document.getElementsByClassName("itemName");
+const itemLists = document.getElementById("itemLists");
 const price = document.getElementsByClassName("price");
 const emptyCart = document.getElementById("emptyCart");
-const items = document.getElementById("items");
 const orderingItems = document.getElementById("orderingItems");
-const itemLists = document.getElementById("itemLists");
-const confirmOrderBtn = document.getElementById("confirmOrderBtn");
+const cartItemsArray = [];
+let count;
 
-let clickedBtn = false;
-for(let i = 0; i < addtocartBoxes.length; i++) {
-    addtocartBoxes[i].addEventListener("click", () => {
-        clickedBtn = true;
-        let count = 1;
-        if(clickedBtn) {
-            addtocartBoxes[i].style.backgroundColor = "var(--redColor)";
-            addtocartBoxes[i].style.borderColor = "var(--redColor)";
-            productQuantities[i].style.display = "flex";
-            addtocart[i].style.display = "none";
-            emptyCart.style.display = "none";
-            orderingItems.style.display = "block";
+for (let i = 0; i < addTocart.length; i++) {
+    addTocart[i].addEventListener("click", () => {
+        addTocart[i].style.display = "none";
+        productQuantity[i].style.display = "flex";
+        emptyCart.style.display = "none";
+        orderingItems.style.display = "block";
 
-            //Creating a container to display selected item name and price... main container
-            const selectedItemBox = document.createElement("div");
-            selectedItemBox.classList.add("selectedItemBox");
-            selectedItemBox.classList.add("center");
-            itemLists.appendChild(selectedItemBox);
+        const itemId = addTocart[i].parentElement.nextElementSibling.getAttribute("id");
+        cartItemsArray.push({
+            itemId: itemId,
+            count: 1
+        });
 
-            //Creating two subcontainer inside main container and using flex...
-            //Right subcontainer
-            const selectedItemBoxRight = document.createElement("div");
-            selectedItemBoxRight.classList.add("selectedItemBoxRight");
-            selectedItemBox.appendChild(selectedItemBoxRight);
-
-            //Creating childs of right subcontainer...
-            //Title...
-            const selectedItemName = document.createElement("p");
-            selectedItemName.classList.add("selectedItemName");
-            selectedItemName.innerHTML = itemName[i].innerHTML;
-            selectedItemBoxRight.appendChild(selectedItemName);
-            
-            //Price...
-            const selectedItemPriceContainer = document.createElement("div");
-            selectedItemPriceContainer.classList.add("selectedItemPriceContainer");
-            selectedItemPriceContainer.classList.add("center");
-            //units displaying div...
-            const selectedItemUnit = document.createElement("div");
-            selectedItemUnit.classList.add("selectedItemUnit");
-            selectedItemUnit.innerHTML = `${count}x`; //ERROR... count is not being ++ when plus btn is clicked...
-            selectedItemPriceContainer.appendChild(selectedItemUnit);
-            //price per item displaying div...
-            const selectedItemPricePerUnit = document.createElement("div");
-            selectedItemPricePerUnit.classList.add("selectedItemPricePerUnit");
-            selectedItemPricePerUnit.innerHTML = "@ $" + price[i].innerHTML;
-            selectedItemPriceContainer.appendChild(selectedItemPricePerUnit);
-            //total price of per unit displaying div...
-            const selectedItemTotalPricePerUnit = document.createElement("div");
-            selectedItemTotalPricePerUnit.classList.add("selectedItemTotalPricePerUnit");
-            selectedItemTotalPricePerUnit.innerHTML = "$" + (Number(price[i].innerHTML) * count).toFixed(2);
-            selectedItemPriceContainer.appendChild(selectedItemTotalPricePerUnit);
-            selectedItemBoxRight.appendChild(selectedItemPriceContainer);
-            
-
-
-            //Left subcontainer
-            const selectedItemBoxLeft = document.createElement("div");
-            selectedItemBoxLeft.classList.add("selectedItemBoxLeft");
-            selectedItemBoxLeft.classList.add("center");
-            selectedItemBox.appendChild(selectedItemBoxLeft);
-        }
+        displayItems();
     })
 }
 
-for(let i =0; i < plusBtn.length; i++) {
-    plusBtn[i].addEventListener("click", () => {
+for (let i = 0; i < plusBtn.length; i++) {
+    plusBtn[i].addEventListener("click", (e) => {
+        e.stopPropagation();
         let unitValue = Number(productUnits[i].innerHTML);
         unitValue++;
         productUnits[i].innerHTML = unitValue;
+        cartItemsArray[i].count++;
+        // console.log(cartItemsArray[i])
     })
-    
-    minusBtns[i].addEventListener("click", () => {
+
+    minusBtns[i].addEventListener("click", (e) => {
+        e.stopPropagation();
         let unitValue = Number(productUnits[i].innerHTML);
-        if(unitValue === 0) { //ERROR... unitvalue is being negative and zero...
-            addtocart[i].display = "flex";
-            productQuantities[i].display = "none";
+        if (unitValue <= 1) {
+            productQuantity[i].style.display = "none";
+            addTocart[i].style.display = "flex";
         }
-        unitValue--;
+        else {
+            unitValue--;
+        }
         productUnits[i].innerHTML = unitValue;
     })
+}
+
+function displayItems() {
+    for (let i = 0; i < cartItemsArray.length; i++) {
+        // console.log(cartItemsArray);
+        //Creating a container to display selected item name and price... main container
+        const selectedItemBox = document.createElement("div");
+        selectedItemBox.classList.add("selectedItemBox");
+        selectedItemBox.classList.add("center");
+        itemLists.appendChild(selectedItemBox);
+
+        //Creating two subcontainer inside main container and using flex...
+        //Right subcontainer
+        const selectedItemBoxRight = document.createElement("div");
+        selectedItemBoxRight.classList.add("selectedItemBoxRight");
+        selectedItemBox.appendChild(selectedItemBoxRight);
+
+        //Creating childs of right subcontainer...
+        //Title...
+        const selectedItemName = document.createElement("p");
+        selectedItemName.classList.add("selectedItemName");
+        const item = document.getElementById(cartItemsArray[i].itemId).querySelector(".itemName").textContent;
+        selectedItemName.innerHTML = item;
+        selectedItemBoxRight.appendChild(selectedItemName);
+
+        //Price...
+        const selectedItemPriceContainer = document.createElement("div");
+        selectedItemPriceContainer.classList.add("selectedItemPriceContainer");
+        selectedItemPriceContainer.classList.add("center");
+        //units displaying div...
+        const selectedItemUnit = document.createElement("div");
+        selectedItemUnit.classList.add("selectedItemUnit");
+        selectedItemUnit.innerHTML = `${count}x`; //ERROR... count is not being ++ when plus btn is clicked...
+        selectedItemPriceContainer.appendChild(selectedItemUnit);
+        //price per item displaying div...
+        const selectedItemPricePerUnit = document.createElement("div");
+        selectedItemPricePerUnit.classList.add("selectedItemPricePerUnit");
+        selectedItemPricePerUnit.innerHTML = "@ $" + price[i].innerHTML;
+        selectedItemPriceContainer.appendChild(selectedItemPricePerUnit);
+        //total price of per unit displaying div...
+        const selectedItemTotalPricePerUnit = document.createElement("div");
+        selectedItemTotalPricePerUnit.classList.add("selectedItemTotalPricePerUnit");
+        selectedItemTotalPricePerUnit.innerHTML = "$" + (Number(price[i].innerHTML) * count).toFixed(2);
+        selectedItemPriceContainer.appendChild(selectedItemTotalPricePerUnit);
+        selectedItemBoxRight.appendChild(selectedItemPriceContainer);
+
+        //Left subcontainer
+        const selectedItemBoxLeft = document.createElement("div");
+        selectedItemBoxLeft.classList.add("selectedItemBoxLeft");
+        selectedItemBoxLeft.classList.add("center");
+        selectedItemBox.appendChild(selectedItemBoxLeft);
+    }
 }

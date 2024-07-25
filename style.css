@@ -41,6 +41,10 @@ body{
     justify-content: center;
 }
 
+.invisible {
+    display: none;
+}
+
 main{
     font-family: var(--primaryFont);
     display: flex;
@@ -87,6 +91,7 @@ main{
                         color: var(--redColor);
                         cursor: pointer;
                     }
+                }
 
                     .addtocart{
                         .imageSection{
@@ -110,6 +115,8 @@ main{
                     .productQuantity{
                         display: none;
                         justify-content: space-between;
+                        background-color: var(--redColor);
+                        border-color: var(--redColor);
 
                         .imageSection{
                             width: 20px;
@@ -136,7 +143,6 @@ main{
                             padding: 2px;
                         }
                     }
-                }
             }
 
             .itemDetails{
