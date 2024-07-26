@@ -10,6 +10,7 @@ const items = document.getElementById("items");
 const orderingItems = document.getElementById("orderingItems");
 const cartItemsArray = [];
 let count;
+let crossBtns = [];
 
 for (let i = 0; i < addTocart.length; i++) {
     addTocart[i].addEventListener("click", () => {
@@ -108,9 +109,22 @@ function displayItems() {
         //Left subcontainer
         const selectedItemBoxLeft = document.createElement("div");
         selectedItemBoxLeft.classList.add("selectedItemBoxLeft");
-        selectedItemBoxLeft.classList.add("center"); //Cross btn remaining...
+        selectedItemBoxLeft.classList.add("center"); 
+        //Cross Btn
+        const crossBtn = document.createElement("img");
+        crossBtn.classList.add("crossBtn");
+        crossBtn.src = "images/icon-remove-item.svg";
+        selectedItemBoxLeft.appendChild(crossBtn);
         selectedItemBox.appendChild(selectedItemBoxLeft);
-
+        
         items.textContent = cartItemsArray.length;
+        crossBtns = document.getElementsByClassName("crossBtn");
+        console.log(crossBtns);
+        for(let i = 0; i < crossBtns.length; i++){
+            crossBtns[i].addEventListener("click", () => {
+                cartItemsArray.splice(i, 1);
+                console.log(cartItemsArray) //Removed arr element from array sucessfully...
+            })
+        }
     }
 }
