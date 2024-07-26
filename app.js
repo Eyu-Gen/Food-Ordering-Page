@@ -8,7 +8,7 @@ const price = document.getElementsByClassName("price");
 const emptyCart = document.getElementById("emptyCart");
 const items = document.getElementById("items");
 const orderingItems = document.getElementById("orderingItems");
-const cartItemsArray = [];
+let cartItemsArray = [];
 let count;
 let crossBtns = [];
 
@@ -60,7 +60,7 @@ for (let i = 0; i < plusBtn.length; i++) {
 function displayItems() {
     itemLists.innerHTML = "";
     for (let i = 0; i < cartItemsArray.length; i++) {
-        if(cartItemsArray[i].count < 1) {
+        if (cartItemsArray[i].count < 1) {
             continue;
         }
         // console.log(cartItemsArray);
@@ -109,22 +109,26 @@ function displayItems() {
         //Left subcontainer
         const selectedItemBoxLeft = document.createElement("div");
         selectedItemBoxLeft.classList.add("selectedItemBoxLeft");
-        selectedItemBoxLeft.classList.add("center"); 
+        selectedItemBoxLeft.classList.add("center");
         //Cross Btn
         const crossBtn = document.createElement("img");
         crossBtn.classList.add("crossBtn");
         crossBtn.src = "images/icon-remove-item.svg";
         selectedItemBoxLeft.appendChild(crossBtn);
         selectedItemBox.appendChild(selectedItemBoxLeft);
-        
+
         items.textContent = cartItemsArray.length;
-        crossBtns = document.getElementsByClassName("crossBtn");
-        console.log(crossBtns);
-        for(let i = 0; i < crossBtns.length; i++){
-            crossBtns[i].addEventListener("click", () => {
-                cartItemsArray.splice(i, 1);
-                console.log(cartItemsArray) //Removed arr element from array sucessfully...
-            })
-        }
     }
+
+    crossBtns = document.getElementsByClassName("crossBtn");
+
+    for (let i = 0; i < crossBtns.length; i++) {
+        crossBtns[i].addEventListener("click", () => {
+            cartItemsArray = cartItemsArray.filter(item => item.itemId != cartItemsArray[i].itemId)
+            // console.log(productQuantity);
+            productQuantity[i].style.display = "none";
+            displayItems()
+        })
+    }
+
 }

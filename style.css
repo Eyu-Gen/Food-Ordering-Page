@@ -249,7 +249,7 @@ main{
                         padding: 5px;
 
                         &:hover{
-                            border: 2px solid black;
+                            border: 2px solid var(--rose400);
                             border-radius: 50%;
                             cursor: pointer;
                         }
