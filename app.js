@@ -4,6 +4,10 @@ const plusBtn = document.getElementsByClassName("plusBtn");
 const minusBtns = document.getElementsByClassName("minusBtn");
 const productUnits = document.getElementsByClassName("productUnits");
 const itemLists = document.getElementById("itemLists");
+const comfirmItemList = document.getElementById("comfirmItemList");
+const confirmOrderBtn = document.getElementById("confirmOrderBtn");
+const blackBackground = document.getElementById("blackBackground");
+const totalPrice = document.getElementById("totalPrice");
 const price = document.getElementsByClassName("price");
 const emptyCart = document.getElementById("emptyCart");
 const items = document.getElementById("items");
@@ -11,11 +15,13 @@ const orderingItems = document.getElementById("orderingItems");
 let cartItemsArray = [];
 let count;
 let crossBtns = [];
+let sum = 0;
 
 for (let i = 0; i < addTocart.length; i++) {
     addTocart[i].addEventListener("click", () => {
         addTocart[i].style.display = "none";
         productQuantity[i].style.display = "flex";
+        productUnits[i].textContent = "1";
         emptyCart.style.display = "none";
         orderingItems.style.display = "block";
 
@@ -25,6 +31,7 @@ for (let i = 0; i < addTocart.length; i++) {
             count: 1
         });
 
+        sum = 0;
         displayItems();
     })
 }
@@ -32,16 +39,20 @@ for (let i = 0; i < addTocart.length; i++) {
 for (let i = 0; i < plusBtn.length; i++) {
     plusBtn[i].addEventListener("click", (e) => {
         e.stopPropagation();
+        sum = 0;
         let unitValue = Number(productUnits[i].innerHTML);
         unitValue++;
         productUnits[i].innerHTML = unitValue;
-        cartItemsArray[i].count++;
-        document.querySelector(`[data-id = ${cartItemsArray[i].itemId}]`).querySelector(".selectedItemUnit").textContent = `${unitValue}x`;
+        const elementId = plusBtn[i].parentElement.parentElement.nextElementSibling.getAttribute("id");
+        const indexOfElement = cartItemsArray.findIndex(item => item.itemId === elementId);
+        cartItemsArray[indexOfElement].count++;
+        document.querySelector(`[data-id = ${cartItemsArray[indexOfElement].itemId}]`).querySelector(".selectedItemUnit").textContent = `${unitValue}x`;
         displayItems();
     })
 
     minusBtns[i].addEventListener("click", (e) => {
         e.stopPropagation();
+        sum = 0;
         let unitValue = Number(productUnits[i].innerHTML);
         if (unitValue <= 1) {
             productQuantity[i].style.display = "none";
@@ -63,13 +74,13 @@ function displayItems() {
         if (cartItemsArray[i].count < 1) {
             continue;
         }
-        // console.log(cartItemsArray);
         //Creating a container to display selected item name and price... main container
         const selectedItemBox = document.createElement("div");
         selectedItemBox.classList.add("selectedItemBox");
         selectedItemBox.classList.add("center");
         selectedItemBox.setAttribute("data-id", cartItemsArray[i].itemId);
         itemLists.appendChild(selectedItemBox);
+        // comfirmItemList.appendChild(selectedItemBox); ERROR: confirmm list ko ni child banauna khojako ...
 
         //Creating two subcontainer inside main container and using flex...
         //Right subcontainer
@@ -102,7 +113,7 @@ function displayItems() {
         //total price of per unit displaying div...
         const selectedItemTotalPricePerUnit = document.createElement("div");
         selectedItemTotalPricePerUnit.classList.add("selectedItemTotalPricePerUnit");
-        selectedItemTotalPricePerUnit.innerHTML = "$" + (Number(price[i].textContent) * Number(cartItemsArray[i].count)).toFixed(2);
+        selectedItemTotalPricePerUnit.innerHTML = (Number(price[i].textContent) * Number(cartItemsArray[i].count)).toFixed(2);
         selectedItemPriceContainer.appendChild(selectedItemTotalPricePerUnit);
         selectedItemBoxRight.appendChild(selectedItemPriceContainer);
 
@@ -118,22 +129,41 @@ function displayItems() {
         selectedItemBox.appendChild(selectedItemBoxLeft);
 
         items.textContent = cartItemsArray.length;
+        let totalPricePerUnit = document.getElementsByClassName("selectedItemTotalPricePerUnit");
+        sum += Number(totalPricePerUnit[i].textContent);
     }
+    totalPrice.textContent = sum.toFixed(2);
 
     crossBtns = document.getElementsByClassName("crossBtn");
 
     for (let i = 0; i < crossBtns.length; i++) {
         crossBtns[i].addEventListener("click", () => {
-            cartItemsArray = cartItemsArray.filter(item => item.itemId != cartItemsArray[i].itemId)
+            const proQty = document.querySelector(`[id = ${cartItemsArray[i].itemId}]`);
+            proQty.previousElementSibling.querySelector(".productQuantity").style.display = "none";
+            proQty.previousElementSibling.querySelector(".addtocart").style.display = "flex";
+            cartItemsArray = cartItemsArray.filter(item => item.itemId != cartItemsArray[i].itemId);
+            items.textContent = cartItemsArray.length;
+            if (cartItemsArray.length <= 0) {
+                emptyCart.style.display = "flex";
+                orderingItems.style.display = "none";
+            }
+
             displayItems()
         })
     }
 
 }
 
+//Confirm Order Container Display garako...
+confirmOrderBtn.addEventListener("click", () => {
+    blackBackground.style.display = "flex";
+})
+
+// 
+
 //ERRORS:
-//1. ordering items ma cross garda aata list ma add to cart wala block display hudaina
-//2. Sabai items ko sum display hudaina
-//3. Confirm order wala block display garna baki xa 
-//4. Responsive banaunu xa 
+//1. ordering items ma cross garda aata list ma add to cart wala block display hudaina... DONE
+//2. Sabai items ko sum display hudaina... DONE
+//3. Confirm order wala block display garna baki xa
+//4. Responsive banaunu xa
 // Estimated date to finish this project: July 27, 2024 Saturday

@@ -1,10 +1,10 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root{
+:root {
     --redColor: hsl(14, 86%, 42%);
     --greenColor: hsl(159, 69%, 38%);
     --rose50: hsl(20, 50%, 98%);
@@ -16,7 +16,7 @@
     --primaryFont: Red Hat Text;
 }
 
-body{
+body {
     min-height: 100vh;
     max-width: 1600px;
     margin: 0 auto;
@@ -25,27 +25,68 @@ body{
     justify-content: center;
     background-color: var(--rose100);
     user-select: none;
+    position: relative;
 }
 
-.imageSection{
-    img{
+#blackBackground{
+    position: fixed;
+    font-family: var(--primaryFont);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.612);
+    z-index: 1;
+    display: none;
+
+    #confirmOrderContainer{
+        width: 40%;
+        height: fit-content;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+
+        .imageSection{
+            width: 50px;
+            aspect-ratio: 1/1;
+            margin-bottom: 10px;
+        }
+
+        #confirmOrderPara{
+            margin-top: 10px;
+            color: var(--rose400);
+        }
+
+        /* ARRAY LIST ISNOT DISPLAYED */
+    }
+}
+
+
+.imageSection {
+    img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
 }
 
-.center{
+.center {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.invisible {
-    display: none;
+.crossBtn {
+    padding: 5px;
+
+    &:hover {
+        border: 2px solid var(--rose400);
+        border-radius: 50%;
+        cursor: pointer;
+    }
 }
 
-main{
+main {
     font-family: var(--primaryFont);
     display: flex;
     gap: 30px;
@@ -53,30 +94,31 @@ main{
     padding: 100px;
 }
 
-#desertListContainer{
+
+#desertListContainer {
     width: 70%;
 
-    .productList{
+    .productList {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
         margin-top: 30px;
 
-        .subcontainer{
+        .subcontainer {
             width: 30%;
-            
-            .itemsImage{
+
+            .itemsImage {
                 border-radius: 10px;
                 position: relative;
                 width: 100%;
                 height: 70%;
                 margin-bottom: 30px;
 
-                img{
+                img {
                     border-radius: 10px;
                 }
 
-                .addtocartBox{
+                .addtocartBox {
                     position: absolute;
                     background-color: white;
                     border: 1.5px solid grey;
@@ -86,82 +128,82 @@ main{
                     width: 60%;
                     transition: border-color 0.2s linear, color 0.2s linear;
 
-                    &:hover{
+                    &:hover {
                         border-color: var(--redColor);
                         color: var(--redColor);
                         cursor: pointer;
                     }
                 }
 
-                    .addtocart{
-                        .imageSection{
-                            width: 20px;
-                            aspect-ratio: 1/1;
-                            margin-right: 10px;
+                .addtocart {
+                    .imageSection {
+                        width: 20px;
+                        aspect-ratio: 1/1;
+                        margin-right: 10px;
 
-                            &:hover{
-                                background-color: white;
-                                color: var(--redColor);
-                            }
-                        }
-    
-                        .addtocartTitle{
-                            font-weight: bold;
-                            text-transform: capitalize;
-                            font-size: 15px;
+                        &:hover {
+                            background-color: white;
+                            color: var(--redColor);
                         }
                     }
 
-                    .productQuantity{
-                        display: none;
-                        justify-content: space-between;
-                        background-color: var(--redColor);
-                        border-color: var(--redColor);
+                    .addtocartTitle {
+                        font-weight: bold;
+                        text-transform: capitalize;
+                        font-size: 15px;
+                    }
+                }
 
-                        .imageSection{
-                            width: 20px;
-                            border: 1px solid white;
-                            border-radius: 50%;
-                            aspect-ratio: 1/1;
-                            padding: 5px;
+                .productQuantity {
+                    display: none;
+                    justify-content: space-between;
+                    background-color: var(--redColor);
+                    border-color: var(--redColor);
 
-                            img{
-                                object-fit: none;
-                            }
+                    .imageSection {
+                        width: 20px;
+                        border: 1px solid white;
+                        border-radius: 50%;
+                        aspect-ratio: 1/1;
+                        padding: 5px;
 
-                            &:hover{
-                                background-color: white;
-                                /* color: var(--redColor); ERROR...want to make the svg's color red... */
-                            }
+                        img {
+                            object-fit: none;
                         }
 
-                        .productUnits{
-                            margin: 0px 20px;
-                            color: white;
-                            font-weight: bold;
-                            font-size: 15px;
-                            padding: 2px;
+                        &:hover {
+                            background-color: white;
+                            /* color: var(--redColor); ERROR...want to make the svg's color red... */
                         }
                     }
+
+                    .productUnits {
+                        margin: 0px 20px;
+                        color: white;
+                        font-weight: bold;
+                        font-size: 15px;
+                        padding: 2px;
+                    }
+                }
             }
 
-            .itemDetails{
-                .tags{
+            .itemDetails {
+                .tags {
                     opacity: 70%;
                     margin-bottom: 5px;
                 }
 
-                .itemName{
+                .itemName {
                     font-weight: 700;
                     margin-bottom: 5px;
                     font-size: 15px;
                 }
 
-                .price{
+                .price {
                     font-weight: 600;
                     color: var(--redColor);
 
-                    &::before{
+                    &::before {
                         content: "$";
                     }
                 }
@@ -170,113 +212,113 @@ main{
     }
 }
 
-#summaryContainer{
+#summaryContainer {
     background-color: white;
     width: 30%;
     padding: 30px;
     height: fit-content;
     border-radius: 10px;
 
-    .cartHeading{
+    .cartHeading {
         font-size: 25px;
         font-weight: bold;
         color: var(--redColor);
         margin-bottom: 30px;
     }
 
-    #emptyCart{
+    #emptyCart {
         flex-direction: column;
 
-        .imageSection{
+        .imageSection {
             margin-bottom: 10px;
         }
 
-        .cartNote{
+        .cartNote {
             font-weight: 600;
             color: var(--rose500);
         }
     }
 
-    #orderingItems{
+    #orderingItems {
         display: none;
 
-        #itemLists{
-            .selectedItemBox{
+        #itemLists {
+            .selectedItemBox {
                 width: 100%;
                 justify-content: space-between;
-                margin-bottom:10px;
+                margin-bottom: 10px;
                 border-bottom: 2px solid var(--rose300);
                 font-size: 13px;
 
-                .selectedItemBoxRight{
+                .selectedItemBoxRight {
                     flex-direction: column;
                     width: 70%;
                     height: 100%;
 
-                    .selectedItemName{
+                    .selectedItemName {
                         width: 100%;
                         font-weight: 600;
                         margin-bottom: 5px;
                     }
-                    
-                    .selectedItemPriceContainer{
+
+                    .selectedItemPriceContainer {
                         width: 60%;
                         justify-content: space-around;
                         margin-bottom: 10px;
 
-                        .selectedItemUnit{
+                        .selectedItemUnit {
                             font-weight: 600;
                             color: var(--redColor);
                         }
 
-                        .selectedItemPricePerUnit{
+                        .selectedItemPricePerUnit {
                             /* font-weight: 100; */
                             opacity: 70%;
                         }
 
-                        .selectedItemTotalPricePerUnit{
+                        .selectedItemTotalPricePerUnit {
                             color: var(--rose500);
                             font-weight: 500;
+
+                            &::before {
+                                content: '$';
+                            }
                         }
                     }
                 }
 
-                .selectedItemBoxLeft{
+                .selectedItemBoxLeft {
                     width: 20%;
                     height: 100%;
-                    
-                    .crossBtn{
-                        padding: 5px;
-
-                        &:hover{
-                            border: 2px solid var(--rose400);
-                            border-radius: 50%;
-                            cursor: pointer;
-                        }
-                    }
                 }
 
             }
         }
 
-        .totalPriceBox{
+        .totalPriceBox {
             margin-top: 20px;
             justify-content: space-between;
             margin-bottom: 30px;
 
-            .title{
+            .title {
                 font-weight: 500;
+            }
+
+            #totalPrice {
+                &::before {
+                    content: '$';
+                }
             }
         }
 
-        .deliveryDetails{
+        .deliveryDetails {
             margin-bottom: 20px;
             background-color: var(--rose50);
             padding: 20px;
             border-radius: 5px;
         }
 
-        #confirmOrderBtn{
+        #confirmOrderBtn {
             width: 100%;
             background-color: var(--redColor);
             padding: 15px;
@@ -287,7 +329,7 @@ main{
             font-size: 16px;
             transition: background-color 0.2s linear;
 
-            &:hover{
+            &:hover {
                 cursor: pointer;
                 background-color: var(--rose900);
             }
