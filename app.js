@@ -125,10 +125,15 @@ function displayItems() {
     for (let i = 0; i < crossBtns.length; i++) {
         crossBtns[i].addEventListener("click", () => {
             cartItemsArray = cartItemsArray.filter(item => item.itemId != cartItemsArray[i].itemId)
-            // console.log(productQuantity);
-            productQuantity[i].style.display = "none";
             displayItems()
         })
     }
 
 }
+
+//ERRORS:
+//1. ordering items ma cross garda aata list ma add to cart wala block display hudaina
+//2. Sabai items ko sum display hudaina
+//3. Confirm order wala block display garna baki xa 
+//4. Responsive banaunu xa 
+// Estimated date to finish this project: July 27, 2024 Saturday
