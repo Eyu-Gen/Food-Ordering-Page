@@ -57,10 +57,21 @@ body {
             color: var(--rose400);
         }
 
+        #confirmItemList{
+            background-color: var(--rose100);
+            border-radius: 5px;
+            padding: 20px;
+            width: 100%;
+            margin: 20px 0px;
+        }
+
         /* ARRAY LIST ISNOT DISPLAYED */
     }
 }
 
+.orderedItemName{
+    font-weight: bold;
+}
 
 .imageSection {
     img {
@@ -74,6 +85,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.selectedItemBoxRightWrapper{
+    gap: 20px;
 }
 
 .crossBtn {
@@ -94,6 +109,57 @@ main {
     padding: 100px;
 }
 
+.selectedItemBox {
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--rose300);
+    font-size: 13px;
+
+    .selectedItemBoxRight {
+        flex-direction: column;
+        width: 70%;
+        height: 100%;
+
+        .selectedItemName {
+            width: 100%;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .selectedItemPriceContainer {
+            width: 60%;
+            justify-content: space-around;
+            margin-bottom: 10px;
+            /* height: 10px;
+            background-color: black; */
+
+            .selectedItemUnit {
+                font-weight: 600;
+                color: var(--redColor);
+            }
+
+            .selectedItemPricePerUnit {
+                opacity: 70%;
+            }
+
+            .selectedItemTotalPricePerUnit {
+                color: var(--rose500);
+                font-weight: 500;
+
+                &::before {
+                    content: '$';
+                }
+            }
+        }
+    }
+
+    .selectedItemBoxLeft {
+        width: 20%;
+        height: 100%;
+    }
+
+}
 
 #desertListContainer {
     width: 70%;
@@ -241,59 +307,6 @@ main {
 
     #orderingItems {
         display: none;
-
-        #itemLists {
-            .selectedItemBox {
-                width: 100%;
-                justify-content: space-between;
-                margin-bottom: 10px;
-                border-bottom: 2px solid var(--rose300);
-                font-size: 13px;
-
-                .selectedItemBoxRight {
-                    flex-direction: column;
-                    width: 70%;
-                    height: 100%;
-
-                    .selectedItemName {
-                        width: 100%;
-                        font-weight: 600;
-                        margin-bottom: 5px;
-                    }
-
-                    .selectedItemPriceContainer {
-                        width: 60%;
-                        justify-content: space-around;
-                        margin-bottom: 10px;
-
-                        .selectedItemUnit {
-                            font-weight: 600;
-                            color: var(--redColor);
-                        }
-
-                        .selectedItemPricePerUnit {
-                            /* font-weight: 100; */
-                            opacity: 70%;
-                        }
-
-                        .selectedItemTotalPricePerUnit {
-                            color: var(--rose500);
-                            font-weight: 500;
-
-                            &::before {
-                                content: '$';
-                            }
-                        }
-                    }
-                }
-
-                .selectedItemBoxLeft {
-                    width: 20%;
-                    height: 100%;
-                }
-
-            }
-        }
 
         .totalPriceBox {
             margin-top: 20px;

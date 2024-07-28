@@ -4,7 +4,7 @@ const plusBtn = document.getElementsByClassName("plusBtn");
 const minusBtns = document.getElementsByClassName("minusBtn");
 const productUnits = document.getElementsByClassName("productUnits");
 const itemLists = document.getElementById("itemLists");
-const comfirmItemList = document.getElementById("comfirmItemList");
+const confirmItemList = document.getElementById("confirmItemList");
 const confirmOrderBtn = document.getElementById("confirmOrderBtn");
 const blackBackground = document.getElementById("blackBackground");
 const totalPrice = document.getElementById("totalPrice");
@@ -80,7 +80,6 @@ function displayItems() {
         selectedItemBox.classList.add("center");
         selectedItemBox.setAttribute("data-id", cartItemsArray[i].itemId);
         itemLists.appendChild(selectedItemBox);
-        // comfirmItemList.appendChild(selectedItemBox); ERROR: confirmm list ko ni child banauna khojako ...
 
         //Creating two subcontainer inside main container and using flex...
         //Right subcontainer
@@ -92,8 +91,8 @@ function displayItems() {
         //Title...
         const selectedItemName = document.createElement("p");
         selectedItemName.classList.add("selectedItemName");
-        const item = document.getElementById(cartItemsArray[i].itemId).querySelector(".itemName").textContent;
-        selectedItemName.innerHTML = item;
+        const item = document.getElementById(cartItemsArray[i].itemId).querySelector(".itemName");
+        selectedItemName.textContent = item.textContent;
         selectedItemBoxRight.appendChild(selectedItemName);
 
         //Price...
@@ -157,13 +156,96 @@ function displayItems() {
 //Confirm Order Container Display garako...
 confirmOrderBtn.addEventListener("click", () => {
     blackBackground.style.display = "flex";
-})
 
-// 
+    confirmOrderList();
+});
+
+function confirmOrderList() {
+    for(let i = 0; i < cartItemsArray.length; i++) {
+        //Creating a container to display selected item name and price... main container
+        const selectedItemBox = document.createElement("div");
+        selectedItemBox.classList.add("selectedItemBox");
+        selectedItemBox.classList.add("center");
+        confirmItemList.appendChild(selectedItemBox);
+
+        const selectedItemBoxRightWrapper = document.createElement("div");
+        selectedItemBoxRightWrapper.classList.add("center", "selectedItemBoxRightWrapper");
+        selectedItemBoxRightWrapper.style.border = "1px solid red";
+        selectedItemBox.appendChild(selectedItemBoxRightWrapper);
+
+        //Creating the imageSection...
+        const imageSection = document.createElement("div");
+        imageSection.classList.add("imageSection", "center");
+        imageSection.style.width = "70px";
+        //Putting image...
+        const image = document.createElement("img");
+        image.src = (document.getElementById(cartItemsArray[i].itemId)).previousElementSibling.querySelector("img").src;
+        image.style.borderRadius = "10px"
+        imageSection.appendChild(image);
+        selectedItemBoxRightWrapper.appendChild(imageSection);
+
+        //Creating two subcontainer inside main container and using flex...
+        //Right subcontainer
+        const selectedItemBoxRight = document.createElement("div");
+        selectedItemBoxRight.classList.add("selectedItemBoxRight");
+        selectedItemBoxRightWrapper.appendChild(selectedItemBoxRight);
+
+        //Creating childs of right subcontainer...
+        //Title...
+        const selectedItemName = document.createElement("p");
+        selectedItemName.classList.add("selectedItemName");
+        const item = document.getElementById(cartItemsArray[i].itemId).querySelector(".itemName");
+        selectedItemName.textContent = item.textContent;
+        selectedItemBoxRight.appendChild(selectedItemName);
+
+        //Price... ERROR....................................
+        const selectedItemPriceContainer = document.createElement("div");
+        selectedItemPriceContainer.classList.add("selectedItemPriceContainer");
+        selectedItemPriceContainer.classList.add("center");
+        selectedItemPriceContainer.style.height = "10px";
+        selectedItemPriceContainer.style.backgroundColor = "red";
+
+        //units displaying div...
+        const selectedItemUnit = document.createElement("div");
+        selectedItemUnit.classList.add("selectedItemUnit");
+        selectedItemUnit.innerHTML = `${cartItemsArray[i].count}x`;
+        selectedItemPriceContainer.appendChild(selectedItemUnit);
+
+        // //price per item displaying div...
+        // const selectedItemPricePerUnit = document.createElement("div");
+        // selectedItemPricePerUnit.classList.add("selectedItemPricePerUnit");
+        // selectedItemPricePerUnit.innerHTML = "@ $" + price[i].innerHTML;
+        // selectedItemPriceContainer.appendChild(selectedItemPricePerUnit);
+        // //total price of per unit displaying div...
+        // const selectedItemTotalPricePerUnit = document.createElement("div");
+        // selectedItemTotalPricePerUnit.classList.add("selectedItemTotalPricePerUnit");
+        // selectedItemTotalPricePerUnit.innerHTML = (Number(price[i].textContent) * Number(cartItemsArray[i].count)).toFixed(2);
+        // selectedItemPriceContainer.appendChild(selectedItemTotalPricePerUnit);
+        // selectedItemBoxRight.appendChild(selectedItemPriceContainer);
+
+        // //Left subcontainer
+        // const selectedItemBoxLeft = document.createElement("div");
+        // selectedItemBoxLeft.classList.add("selectedItemBoxLeft");
+        // selectedItemBoxLeft.classList.add("center");
+        // //Cross Btn
+        // const crossBtn = document.createElement("img");
+        // crossBtn.classList.add("crossBtn");
+        // crossBtn.src = "images/icon-remove-item.svg";
+        // selectedItemBoxLeft.appendChild(crossBtn);
+        // selectedItemBox.appendChild(selectedItemBoxLeft);
+        
+        // const confirmItem = (document.querySelector(`[id = ${cartItemsArray[i].itemId}]`)).querySelector(".itemName");
+        // confirmItemBox.textContent = confirmItem.textContent;
+        // confirmItemList.appendChild(confirmItemBox);
+    }
+}
+
+
+//
 
 //ERRORS:
 //1. ordering items ma cross garda aata list ma add to cart wala block display hudaina... DONE
 //2. Sabai items ko sum display hudaina... DONE
 //3. Confirm order wala block display garna baki xa
 //4. Responsive banaunu xa
-// Estimated date to finish this project: July 27, 2024 Saturday
+// Estimated date to finish this project: July 27, 2024 Saturday + 3 days
