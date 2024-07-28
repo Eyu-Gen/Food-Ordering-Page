@@ -28,7 +28,7 @@ body {
     position: relative;
 }
 
-#blackBackground{
+#blackBackground {
     position: fixed;
     font-family: var(--primaryFont);
     top: 0;
@@ -39,37 +39,36 @@ body {
     z-index: 1;
     display: none;
 
-    #confirmOrderContainer{
+    #confirmOrderContainer {
         width: 40%;
-        height: fit-content;
+        max-height: 100vh;
+        overflow: scroll;
         background-color: white;
         border-radius: 10px;
         padding: 20px;
 
-        .imageSection{
+        .imageSection {
             width: 50px;
             aspect-ratio: 1/1;
             margin-bottom: 10px;
         }
 
-        #confirmOrderPara{
+        #confirmOrderPara {
             margin-top: 10px;
             color: var(--rose400);
         }
 
-        #confirmItemList{
+        #confirmItemListContainer {
             background-color: var(--rose100);
             border-radius: 5px;
             padding: 20px;
             width: 100%;
             margin: 20px 0px;
         }
-
-        /* ARRAY LIST ISNOT DISPLAYED */
     }
 }
 
-.orderedItemName{
+.orderedItemName {
     font-weight: bold;
 }
 
@@ -87,8 +86,14 @@ body {
     justify-content: center;
 }
 
-.selectedItemBoxRightWrapper{
+.selectedItemBoxRightWrapper {
     gap: 20px;
+}
+
+.confirmSelectedItemTotalPricePerUnit {
+    &::before {
+        content: "$";
+    }
 }
 
 .crossBtn {
@@ -131,8 +136,6 @@ main {
             width: 60%;
             justify-content: space-around;
             margin-bottom: 10px;
-            /* height: 10px;
-            background-color: black; */
 
             .selectedItemUnit {
                 font-weight: 600;
@@ -161,17 +164,53 @@ main {
 
 }
 
+.totalPriceBox {
+    margin-top: 20px;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    .title {
+        font-weight: 500;
+    }
+
+
+    #finalTotalPrice,
+    #totalPrice {
+        &::before {
+            content: '$';
+        }
+    }
+}
+
+#finalOrderBtn {
+    margin-top: 10px;
+    width: 100%;
+    background-color: var(--redColor);
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    transition: background-color 0.2s linear;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--rose900);
+    }
+}
+
 #desertListContainer {
     width: 70%;
-
+    
     .productList {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: auto auto auto;
         gap: 20px;
         margin-top: 30px;
 
         .subcontainer {
-            width: 30%;
+            width: 100%;
 
             .itemsImage {
                 border-radius: 10px;
@@ -239,7 +278,6 @@ main {
 
                         &:hover {
                             background-color: white;
-                            /* color: var(--redColor); ERROR...want to make the svg's color red... */
                         }
                     }
 
@@ -308,22 +346,6 @@ main {
     #orderingItems {
         display: none;
 
-        .totalPriceBox {
-            margin-top: 20px;
-            justify-content: space-between;
-            margin-bottom: 30px;
-
-            .title {
-                font-weight: 500;
-            }
-
-            #totalPrice {
-                &::before {
-                    content: '$';
-                }
-            }
-        }
-
         .deliveryDetails {
             margin-bottom: 20px;
             background-color: var(--rose50);
@@ -346,6 +368,55 @@ main {
                 cursor: pointer;
                 background-color: var(--rose900);
             }
+        }
+    }
+}
+
+@media(max-width: 1025px) and (min-width: 550px) {
+    main{
+        flex-direction: column;
+    }
+
+    #desertListContainer{       
+        width: 100%;
+
+        .productList{
+            grid-template-columns: auto auto;
+        }
+    }
+
+    #summaryContainer{
+        width: 100%;
+    }
+    
+    #blackBackground {
+        #confirmOrderContainer{
+            width: 60%;
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    main{
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    #desertListContainer{
+        width: 100%;
+        
+        .productList{
+            grid-template-columns: auto;
+        }
+    }
+    
+    #summaryContainer{
+        width: 100%;
+    }
+
+    #blackBackground {
+        #confirmOrderContainer{
+            width: 100%;
         }
     }
 }

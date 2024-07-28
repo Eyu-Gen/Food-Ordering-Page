@@ -8,6 +8,7 @@ const confirmItemList = document.getElementById("confirmItemList");
 const confirmOrderBtn = document.getElementById("confirmOrderBtn");
 const blackBackground = document.getElementById("blackBackground");
 const totalPrice = document.getElementById("totalPrice");
+const finalTotalPrice = document.getElementById("finalTotalPrice");
 const price = document.getElementsByClassName("price");
 const emptyCart = document.getElementById("emptyCart");
 const items = document.getElementById("items");
@@ -17,6 +18,8 @@ let count;
 let crossBtns = [];
 let sum = 0;
 
+
+// Event listener for "Add to Cart" buttons to update UI and cart state upon click...
 for (let i = 0; i < addTocart.length; i++) {
     addTocart[i].addEventListener("click", () => {
         addTocart[i].style.display = "none";
@@ -36,6 +39,7 @@ for (let i = 0; i < addTocart.length; i++) {
     })
 }
 
+// Event listeners for incrementing and decrementing product quantities in the cart
 for (let i = 0; i < plusBtn.length; i++) {
     plusBtn[i].addEventListener("click", (e) => {
         e.stopPropagation();
@@ -153,7 +157,7 @@ function displayItems() {
 
 }
 
-//Confirm Order Container Display garako...
+//Confirm Order Container Displayed...
 confirmOrderBtn.addEventListener("click", () => {
     blackBackground.style.display = "flex";
 
@@ -168,24 +172,23 @@ function confirmOrderList() {
         selectedItemBox.classList.add("center");
         confirmItemList.appendChild(selectedItemBox);
 
+        //Child of main container and parent of imageSection and right suncontainer div... Wrapper
         const selectedItemBoxRightWrapper = document.createElement("div");
         selectedItemBoxRightWrapper.classList.add("center", "selectedItemBoxRightWrapper");
-        selectedItemBoxRightWrapper.style.border = "1px solid red";
         selectedItemBox.appendChild(selectedItemBoxRightWrapper);
-
-        //Creating the imageSection...
+        
+        //Creating the imageSection div... child of wrapper
         const imageSection = document.createElement("div");
         imageSection.classList.add("imageSection", "center");
         imageSection.style.width = "70px";
-        //Putting image...
+        //Putting image... child of imageSection div
         const image = document.createElement("img");
         image.src = (document.getElementById(cartItemsArray[i].itemId)).previousElementSibling.querySelector("img").src;
         image.style.borderRadius = "10px"
         imageSection.appendChild(image);
         selectedItemBoxRightWrapper.appendChild(imageSection);
 
-        //Creating two subcontainer inside main container and using flex...
-        //Right subcontainer
+        //Right subcontainer... another child of wrapper
         const selectedItemBoxRight = document.createElement("div");
         selectedItemBoxRight.classList.add("selectedItemBoxRight");
         selectedItemBoxRightWrapper.appendChild(selectedItemBoxRight);
@@ -198,54 +201,41 @@ function confirmOrderList() {
         selectedItemName.textContent = item.textContent;
         selectedItemBoxRight.appendChild(selectedItemName);
 
-        //Price... ERROR....................................
+        //Price container... parents of units and price per item containers
         const selectedItemPriceContainer = document.createElement("div");
         selectedItemPriceContainer.classList.add("selectedItemPriceContainer");
         selectedItemPriceContainer.classList.add("center");
-        selectedItemPriceContainer.style.height = "10px";
-        selectedItemPriceContainer.style.backgroundColor = "red";
 
         //units displaying div...
         const selectedItemUnit = document.createElement("div");
-        selectedItemUnit.classList.add("selectedItemUnit");
+        selectedItemUnit.classList.add("selectedItemUnit", "center");
         selectedItemUnit.innerHTML = `${cartItemsArray[i].count}x`;
         selectedItemPriceContainer.appendChild(selectedItemUnit);
 
-        // //price per item displaying div...
-        // const selectedItemPricePerUnit = document.createElement("div");
-        // selectedItemPricePerUnit.classList.add("selectedItemPricePerUnit");
-        // selectedItemPricePerUnit.innerHTML = "@ $" + price[i].innerHTML;
-        // selectedItemPriceContainer.appendChild(selectedItemPricePerUnit);
-        // //total price of per unit displaying div...
-        // const selectedItemTotalPricePerUnit = document.createElement("div");
-        // selectedItemTotalPricePerUnit.classList.add("selectedItemTotalPricePerUnit");
-        // selectedItemTotalPricePerUnit.innerHTML = (Number(price[i].textContent) * Number(cartItemsArray[i].count)).toFixed(2);
-        // selectedItemPriceContainer.appendChild(selectedItemTotalPricePerUnit);
-        // selectedItemBoxRight.appendChild(selectedItemPriceContainer);
-
-        // //Left subcontainer
-        // const selectedItemBoxLeft = document.createElement("div");
-        // selectedItemBoxLeft.classList.add("selectedItemBoxLeft");
-        // selectedItemBoxLeft.classList.add("center");
-        // //Cross Btn
-        // const crossBtn = document.createElement("img");
-        // crossBtn.classList.add("crossBtn");
-        // crossBtn.src = "images/icon-remove-item.svg";
-        // selectedItemBoxLeft.appendChild(crossBtn);
-        // selectedItemBox.appendChild(selectedItemBoxLeft);
+        //price per item displaying div...
+        const selectedItemPricePerUnit = document.createElement("div");
+        selectedItemPricePerUnit.classList.add("selectedItemPricePerUnit", "center");
+        selectedItemPricePerUnit.innerHTML = "@ $" + price[i].innerHTML;
+        selectedItemPriceContainer.appendChild(selectedItemPricePerUnit);
         
-        // const confirmItem = (document.querySelector(`[id = ${cartItemsArray[i].itemId}]`)).querySelector(".itemName");
-        // confirmItemBox.textContent = confirmItem.textContent;
-        // confirmItemList.appendChild(confirmItemBox);
+        selectedItemBoxRight.appendChild(selectedItemPriceContainer);
+
+        
+        //Left subcontainer... another child of main container
+        const selectedItemBoxLeft = document.createElement("div");
+        selectedItemBoxLeft.classList.add("selectedItemBoxLeft");
+        selectedItemBoxLeft.classList.add("center");
+
+        //total price of per unit displaying div... child of left Subcontainer
+        const selectedItemTotalPricePerUnit = document.createElement("h2");
+        selectedItemTotalPricePerUnit.classList.add("confirmSelectedItemTotalPricePerUnit");
+        selectedItemTotalPricePerUnit.innerHTML = (Number(price[i].textContent) * Number(cartItemsArray[i].count)).toFixed(2);
+        selectedItemBoxLeft.appendChild(selectedItemTotalPricePerUnit);
+        
+        selectedItemBox.appendChild(selectedItemBoxLeft);
     }
+
+    finalTotalPrice.textContent = totalPrice.textContent; //Displaying total price
 }
 
-
-//
-
-//ERRORS:
-//1. ordering items ma cross garda aata list ma add to cart wala block display hudaina... DONE
-//2. Sabai items ko sum display hudaina... DONE
-//3. Confirm order wala block display garna baki xa
-//4. Responsive banaunu xa
-// Estimated date to finish this project: July 27, 2024 Saturday + 3 days
+document.getElementById("finalOrderBtn").addEventListener("click", () => {location.reload();}) //refreshing page
