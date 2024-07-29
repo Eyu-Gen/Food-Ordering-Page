@@ -66,9 +66,20 @@ for (let i = 0; i < plusBtn.length; i++) {
             unitValue--;
         }
         productUnits[i].innerHTML = unitValue;
-        cartItemsArray[i].count--;
-        document.querySelector(`[data-id = ${cartItemsArray[i].itemId}]`).querySelector(".selectedItemUnit").textContent = `${unitValue}x`;
-        displayItems()
+        const elementId = plusBtn[i].parentElement.parentElement.nextElementSibling.getAttribute("id");
+        const indexOfElement = cartItemsArray.findIndex(item => item.itemId === elementId);
+        cartItemsArray[indexOfElement].count--;
+        if(cartItemsArray[indexOfElement].count <= 0) {
+            cartItemsArray = cartItemsArray.filter(item => item.itemId != cartItemsArray[indexOfElement].itemId);
+            items.textContent = cartItemsArray.length;
+            if (cartItemsArray.length <= 0) {
+                emptyCart.style.display = "flex";
+                orderingItems.style.display = "none";
+            }
+            displayItems()
+        }
+        document.querySelector(`[data-id = ${cartItemsArray[indexOfElement].itemId}]`).querySelector(".selectedItemUnit").textContent = `${unitValue}x`;
+        displayItems();
     })
 }
 
@@ -239,3 +250,6 @@ function confirmOrderList() {
 }
 
 document.getElementById("finalOrderBtn").addEventListener("click", () => {location.reload();}) //refreshing page
+
+// ERROR:
+// Order confirmed container ma kunai item 0 or less than 0 xa vani ni display vai rako xa...
