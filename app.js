@@ -76,9 +76,12 @@ for (let i = 0; i < plusBtn.length; i++) {
                 emptyCart.style.display = "flex";
                 orderingItems.style.display = "none";
             }
-            displayItems()
+            displayItems();
         }
-        document.querySelector(`[data-id = ${cartItemsArray[indexOfElement].itemId}]`).querySelector(".selectedItemUnit").textContent = `${unitValue}x`;
+        // console.log(cartItemsArray[indexOfElement]);
+        if(cartItemsArray.length > 0) {
+            document.querySelector(`[data-id = ${cartItemsArray[indexOfElement].itemId}]`).querySelector(".selectedItemUnit").textContent = `${unitValue}x`;
+        }
         displayItems();
     })
 }
