@@ -42,7 +42,7 @@ for (let i = 0; i < addTocart.length; i++) {
 // Event listeners for incrementing and decrementing product quantities in the cart
 for (let i = 0; i < plusBtn.length; i++) {
     plusBtn[i].addEventListener("click", (e) => {
-        e.stopPropagation();
+        e.stopPropagation(); //Reducing bubbling...
         sum = 0;
         let unitValue = Number(productUnits[i].innerHTML);
         unitValue++;
@@ -84,7 +84,7 @@ for (let i = 0; i < plusBtn.length; i++) {
 }
 
 function displayItems() {
-    itemLists.innerHTML = "";
+    itemLists.innerHTML = ""; //Reducing the array repeating issue...
     for (let i = 0; i < cartItemsArray.length; i++) {
         if (cartItemsArray[i].count < 1) {
             continue;
