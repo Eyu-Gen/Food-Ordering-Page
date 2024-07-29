@@ -250,6 +250,3 @@ function confirmOrderList() {
 }
 
 document.getElementById("finalOrderBtn").addEventListener("click", () => {location.reload();}) //refreshing page
-
-// ERROR:
-// Order confirmed container ma kunai item 0 or less than 0 xa vani ni display vai rako xa...
