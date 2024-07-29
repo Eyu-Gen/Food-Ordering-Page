@@ -42,10 +42,15 @@ body {
     #confirmOrderContainer {
         width: 40%;
         max-height: 100vh;
-        overflow: scroll;
+        overflow-x: none;
+        overflow-y: scroll;
         background-color: white;
         border-radius: 10px;
         padding: 20px;
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
 
         .imageSection {
             width: 50px;
